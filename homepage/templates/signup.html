@@ -1,0 +1,36 @@
+{{% extends "base.html" %}
+
+
+{% block title %} About {% endblock title %}
+
+
+{% block content %}
+    
+    {% if not user.is_authenticated  %}
+        <br>
+        <a href="{% url 'home' %}" class="btn ghost-button">Go Back</a>
+    {% endif %}    
+    
+    <div class="align-middle" style="color: #ea2088; font-style: bold; font-size: 3rem;">EMSI</div>
+    <div class="align-middle" style="color: #fff">An Inventory Management System</div>
+    <br><br>
+
+    <h2 style="color: #ea2088;">Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Done</button>
+  </form>
+
+{% endblock content %}
